@@ -1,0 +1,135 @@
+body {
+	font-family: monospace;
+	text-align: center;
+}
+table {
+	margin: 0 auto;
+}
+td {
+	vertical-align: top;
+	padding: 5px;
+}
+td > div {
+	border: 1px solid black;
+	background: ghostwhite;
+	margin-bottom: 5px;
+	border-radius: 3px;
+}
+div {
+	padding: 10px 20px;
+	height: 100%;
+}
+h3 {
+	text-align: center;
+}
+#outputDevices {
+	min-width: 600px;
+}
+#outputDevices td {
+	vertical-align: middle;
+}
+.logWrapper, #scheduleUI {
+	background: white;
+	max-height: 900px;
+	overflow-y: scroll;
+}
+#scheduleUI, .logWrapper {
+	height: 15em;
+}
+#scheduleUI {
+	width: 150px;
+}
+#tlog, #elog, #tlog td {
+	max-width: 500px;
+	text-align: left;
+}
+#tlog td, #tlog th {
+	padding: 2px 10px;
+}
+input[type="time"]::-webkit-clear-button {
+    display: none;
+}
+.tableParam {
+	max-width: 80px; 
+	text-align: center;
+}
+#teleTrace {
+	margin: 0 auto;
+}
+
+/**** GENERICS ****/
+button, .button {
+	text-decoration: none;
+	background: #EBEBEB;
+	border: 1px solid gray;
+	color: black;
+	padding: 3px 5px;
+	border-radius: 3px;
+	margin-bottom: 5px;
+}
+button:hover, .button:hover {
+	background: ghostwhite;
+	cursor: pointer;
+}
+
+button:disabled {
+	opacity: .5;
+	cursor: default;
+}
+.toggle {
+	right: 50px;
+	font-size: 11px;
+	margin-top: 0;
+}
+.toggle:hover {
+	font-weight: bold;
+}
+
+/**** TOOLTIP ****/
+
+/* Tooltip container */
+.tooltip {
+	position: relative;
+	display: inline-block;
+	border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+	visibility: hidden;
+	background-color: #555;
+	color: #fff;
+	width: 110%;
+	text-align: center;
+	padding: 10px 10px;
+	border-radius: 6px;
+
+	/* Position the tooltip text */
+	position: absolute;
+	z-index: 1;
+	bottom: 125%;
+	left: 50%;
+	margin-left: -60px;
+
+	/* Fade in tooltip */
+	opacity: 0;
+	transition: opacity 0.3s;
+}
+
+/* Tooltip arrow */
+.tooltip .tooltiptext::after {
+	content: "";
+	position: absolute;
+	top: 100%;
+	left: 50%;
+	margin-left: -5px;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #555 transparent transparent transparent;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+	visibility: visible;
+	opacity: 1;
+}

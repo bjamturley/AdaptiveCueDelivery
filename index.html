@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Automated Cue Delivery</title>
+	<meta http-equiv="content-type" content="text/plain; charset=UTF-8"/>
+<!-- 	<link rel="shortcut icon" type="image/png" href="{{url_for('stm.static', filename='favicon.png')}}"/>
+-->	<link rel="stylesheet" href="index.css"></link>
+</head>
+<style type="text/css">
+html, body {
+	overflow-y: visible;
+}
+</style>
+<body>
+	<script src="jquery.min.js"></script>
+	<script src="index.js"></script>
+	<table>
+		<tr>
+			<td>
+				<div>
+					<h3>Run Experiment</h3>
+					<p id="experimentLengthUI"></p>
+					<p id="experimentTotalTonesUI"></p>
+					<p><b>SCHEDULE</b></p>
+					<button id="randomizeButton" class="notRunnable">Randomize</button>
+					<hr>
+					<div id="scheduleUI"></div>
+					<br>
+					<button id="runButton">RUN</button>
+					<button id="stopButton" disabled>STOP</button>
+				</div>
+			</td>
+			<td>
+				<div>
+					<h3>Experiment Parameters</h3>
+					<p><b>AUDIO</b></p>
+					<label class="tooltip">
+						Tone Frequency (hz)
+						<span class="tooltiptext">e.g. 6000 hz</span>
+					</label><br>
+					<input type="text" value="440" id="frequencyInput"><br>
+					<label>Tone Length (seconds)</label><br>
+					<input type="text" value="30" id="lengthInput"><br>
+					<p><b>INTERVALS</b></p>
+					<table style="background: #EBEBEB">
+						<tr>
+							<td><label>Start</label></td>
+							<td><label>End</label></td>
+						</tr>
+						<tr>
+							<td><input type="time" value="01:00" id="startInput" class="tableParam"></td>
+							<td><input type="time" value="11:00" id="endInput" class="tableParam"></td>
+						</tr>
+					</table>
+					<br>
+					<label>Number of Tones</label><br>
+					<input type="text" value=4 id="numberTonesInput"><br>
+					<br>
+					<label class="tooltip">
+						Minimum Interval Length (minutes)
+						<span class="tooltiptext">Minimum time between each tone</span>
+					</label>
+					<br>
+					<input type="text" value="60" id="timeBetweenInput"><br>
+					<br>
+					<p id="experimentMaxTonesUI"></p>
+					<label class="tooltip">
+						Fixed Interval?
+						<span class="tooltiptext">Non-random interval with spacing of [interval length] and capped at [number of tones]</span>
+					</label>
+					<input type="checkbox" id="fixedIntervalCheckInput" checked="true"><br>
+					<br>
+					<label class="tooltip">
+						Synchronize Tones?
+						<span class="tooltiptext">Maintain the same tone schedule across all speakers. Otherwise randomize schedules</span>
+					</label>
+					<input type="checkbox" id="syncTonesCheckInput" checked=true><br>
+					<p><b>TELEMETRY</b></p>
+					<label class="tooltip">
+						Mean Arterial Pressure Trigger Range (mmHg)
+						<span class="tooltiptext">Mean Arterial Pressure range in millimeters of Mercury (mmHg) between which a tone will be allowed to play</span>
+					</label>
+					<table style="background: #EBEBEB">
+						<tr>
+							<td><label>Minimum</label></td>
+							<td><label>Maximum</label></td>
+						</tr>
+						<tr>
+							<td><input type="text" value="90" id="bpMin" class="tableParam"></td>
+							<td><input type="text" value="105" id="bpMax" class="tableParam"></td>
+						</tr>
+					</table>
+					<br>
+					<label class="tooltip">
+						Mean Arterial Pressure Time in Range (seconds)
+						<span class="tooltiptext">Time that an animal must be within a blood pressure range in order to deliver a tone</span>
+					</label>
+					<br>
+					<input type="text" value=120 id="bpTimeInput"><br>
+					<br>
+					<label class="tooltip">
+						Server Logging Rate (seconds)
+						<span class="tooltiptext">Time in seconds between each message from Ponemah</span>
+					</label>
+					<br>
+					<input type="text" value=1 id="bpLogRateInput"><br>
+					<br>
+					<label class="tooltip">
+						Wait for Telemetry Cue?
+						<span class="tooltiptext">Do not trigger tone until a specific blood pressure reading has been reached</span>
+					</label>
+					<input type="checkbox" id="telemetryCheckInput"><br>
+					<br>
+					<button class="notRunnable" id="parametersButton">Update Parameters</button>
+				</div>
+			</td>
+			<td>
+				<div id="outputDevices">
+					<h3>Configure Audio Devices</h3>
+					<button class="notRunnable" id="refreshButton">Refresh</button>
+					<button class="notRunnable" id="clearDisconnectedButton">Clear Disconnected Devices</button>
+					<hr>
+					<table id="audioDevices"></table>
+				</div>
+				<div>
+					<h3 style="margin-bottom: 0">Event Log</h3>
+					<div id="eventLog">
+						<a href="#" id="eLogButton" class="button" disabled>Download Event Log</a>
+						<br>
+						<hr>
+						<div class="logWrapper">
+							<table id="elog"></table>
+						</div>
+					</div>
+					<span id="toggleEvents" class="toggle">[toggle window]</span>
+				</div>
+				<div>
+					<h3 style="margin-bottom: 0">Telemetry Log</h3>
+					<div id="teleLog">
+						<div id="TeleDis" style="color:red;padding-top: 0">Disconnected from Server</div>
+						<div id="TeleCon" style="display:none;color:green">Connected to Server</div>
+						<a href="#" id="tLogButton" class="button" disabled>Download Telemetry Log</a>
+						<hr>
+						<div class="logWrapper">
+							<table id="tlog" class="log">
+								<tr>
+									<th>Time</th>
+									<th>Name</th>
+									<th>MAP</th>
+									<th>Systolic</th>
+									<th>Diastolic</th>
+									<th>HR</th>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<span id="toggleTele" class="toggle">[toggle window]</span>
+				</div>
+				<div>
+					<h3 style="margin-bottom: 0">Telemetry Range Trace</h3>
+					<div id="traceLog">
+						<p>Tracking <span id="secondsInRange">[]</span> seconds (<span id="pointsInRange">[]</span> datapoints) in range</p>
+						<div id="canvasWrapper">
+							<!-- <canvas id="teleTrace"></canvas> -->
+						</div>
+					</div>
+					<span id="toggleTrace" class="toggle">[toggle window]</span>
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>

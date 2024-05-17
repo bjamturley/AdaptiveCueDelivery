@@ -1,0 +1,21 @@
+{
+  "name": "ACD",
+  "description": "Automated Cue Delivery Software",
+  "version": "1.0",
+  "manifest_version": 2,
+  "icons": { "16": "icon.png",
+           "48": "icon.png",
+          "128": "icon.png" },
+  "permissions": ["audio","audioCapture","sockets"],
+  "app": {
+    "background": {
+      "scripts": ["window.js"]
+    }
+  },
+  "sockets": {
+    "tcp": {
+      "bind": ["*"],
+      "connect": "*"
+    }
+  }
+}
