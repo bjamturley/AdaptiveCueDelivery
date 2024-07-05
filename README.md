@@ -1,5 +1,5 @@
 
-# Automated Cue Delivery Software
+# Adaptive Cue Delivery Software
 This is a public backup of a Chrome App which automates the scheduling of audio cues for multiple devices and contains functionality for state-dependent conditioned stimulus delivery using the instantaneous cardiovascular state of the animal. Read the paper here: https://pubmed.ncbi.nlm.nih.gov/33819454/
 
 These cues can be scheduled randomly or on a fixed interval. The novelty of this app is its use of animal telemetry though a socket connection with Ponemah™. This allows tone delivery to occur only when the animal is within in a set blood pressure range. Basing stimuli on a physiological state eliminates confounds and opens the door for more innovative experimental setups.
