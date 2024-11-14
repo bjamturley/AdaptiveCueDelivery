@@ -9,6 +9,4 @@ These cues can be scheduled randomly or on a fixed interval. The novelty of this
 
 **DISCLAIMERS**
 
-Chrome Apps are no longer supported. However, the software is written in JavaScript/HTML and can easily be used as a web app. The one caveat is that it requires a socket connection for the telemetry software, hence the initial use of the Chrome App framework.
-
-I built this app my Sophomore year of college. The functionality is solid, but there is no guarantee the code incorporates formatting standards or implements proper unit testing. The last update was November 16, 2019.
+Chrome Apps are no longer supported. However, the software is written in JavaScript/HTML and can easily be used as a web app. The one caveat is that it requires a socket connection for the telemetry software, hence the initial use of the Chrome App framework. The last update was November 16, 2019.
